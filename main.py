@@ -12,9 +12,9 @@ def meniu():
     print("2. Afișarea listei după eliminarea numerelor prime din listă ")
     print("3. Să se afișeze dacă media aritmetică a numerelor este mai mare decât un număr n dat. ")
     print("4. Afișarea listei obținută prin adăugarea după fiecare element numărul de divizori proprii ai elementului ")
-    print("5. Afișarea listei obținute din lista inițială în care numerele sunt înlocuite cu un tuplu în care pe "
-          "prima poziție este numărul, pe a doua poziție va fi indexul elementului din listă, iar pe a treia "
-          "poziție apare numărul de apariții a numărului.")
+    print("5. Afișarea listei obținute din lista inițială în care numerele sunt înlocuite cu un tuplu în care pe ")
+    print("prima poziție este numărul, pe a doua poziție va fi indexul elementului din listă, iar pe a treia ")
+    print("poziție apare numărul de apariții a numărului.")
     print("6. Iesire")
 
 
@@ -119,10 +119,58 @@ def test_adaugare_divizori_proprii():
     assert adaugare_divizori_proprii([]) == []
 
 
+def numarare_aparitii(element, lista):
+    """
+    Functia retunreaza nr de aparitii ale elementului in lista
+    :param element: numar intreg
+    :param lista: lista de numere intregi
+    :return: numarul aparitiilor
+    """
+
+    numar = 0
+    for i in lista:
+        if element == i:
+            numar = numar + 1
+    return numar
+
+
+def determinare_tuplu(lista, pozitie, element):
+    """
+    Functia returneaza tuplul format din element, pozitia acestuia, si numarul aparitiilor
+    :param lista: lista de numere intregi
+    :param pozitie: numar natural
+    :return: tuplul de numere (format din nr, indicele elementului, si numarul aparitiilor)
+    """
+    numar_aparitii = numarare_aparitii(element, lista)
+    return element, pozitie, numar_aparitii
+
+
+def inlocuire_cu_un_tuplu(lista):
+    """
+    Functia inlocuieste elementele cu un tuplu format din:
+    elementul in sine, pozitia acestuia in lista, si numarul aparitiilor acestuia in lista
+    :param lista: lista de numere intregi
+    :return: noua lista cu elementele tuplu
+    """
+
+    lista_noua = []
+    for i in range (len(lista)):
+        lista_noua.append(determinare_tuplu(lista, i, lista[i]))
+    return lista_noua
+
+
+def test_inlocuire_cu_un_tuplu():
+    assert inlocuire_cu_un_tuplu([25, 13, 26, 13]) == [(25, 0, 1), (13, 1, 2), (26, 2, 1), (13, 3, 2)]
+    assert inlocuire_cu_un_tuplu([]) == []
+    assert inlocuire_cu_un_tuplu([1, -1, 2]) == [(1, 0, 1), (-1, 1, 1), (2, 2, 1)]
+
+
 def teste():
     test_eliminare_nr_prime()
     test_media_mai_mare_decat_n()
     test_adaugare_divizori_proprii()
+    test_inlocuire_cu_un_tuplu()
+
 
 def main():
     lista = []
@@ -149,7 +197,7 @@ def main():
             lista_afisata = adaugare_divizori_proprii(lista)
             print("Noua lista este: " + str(lista_afisata))
         elif optiune == 5:
-            lista_afisata = cerinta_5(lista)
+            lista_afisata = inlocuire_cu_un_tuplu(lista)
             print("Lista in urma operatiunilor este: " + str(lista_afisata))
         elif optiune == 6:
             print("La revedere ")
@@ -157,6 +205,7 @@ def main():
         else:
             print("Optiune gresita, alegeti din nou ")
 
-main()
+if __name__ == '__main__':
+    main()
 
 
