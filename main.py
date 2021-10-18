@@ -57,7 +57,6 @@ def test_eliminare_nr_prime():
     assert eliminare_nr_prime([]) == []
 
 
-
 def media_mai_mare_decat_n(lista, n):
     """
     Functia calculeaza media aritmetica a elementelor listei,si verifica daca aceasta
@@ -139,6 +138,7 @@ def determinare_tuplu(lista, pozitie, element):
     Functia returneaza tuplul format din element, pozitia acestuia, si numarul aparitiilor
     :param lista: lista de numere intregi
     :param pozitie: numar natural
+    :param element: numar intreg
     :return: tuplul de numere (format din nr, indicele elementului, si numarul aparitiilor)
     """
     numar_aparitii = numarare_aparitii(element, lista)
@@ -154,7 +154,7 @@ def inlocuire_cu_un_tuplu(lista):
     """
 
     lista_noua = []
-    for i in range (len(lista)):
+    for i in range(len(lista)):
         lista_noua.append(determinare_tuplu(lista, i, lista[i]))
     return lista_noua
 
@@ -205,7 +205,6 @@ def main():
         else:
             print("Optiune gresita, alegeti din nou ")
 
+
 if __name__ == '__main__':
     main()
-
-
